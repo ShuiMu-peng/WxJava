@@ -1,5 +1,7 @@
 package com.github.binarywang.wxpay.bean.realnameauthentication.response;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -13,6 +15,7 @@ import java.io.Serializable;
  * }
  * @author lipeng 2025/10/3
  */
+@Data
 public class RealNameAuthAccessTokenResponse implements Serializable {
   private static final long serialVersionUID = 1L;
   /**

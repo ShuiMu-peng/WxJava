@@ -1,6 +1,7 @@
 package com.github.binarywang.wxpay.service.impl;
 
 import com.github.binarywang.wxpay.bean.realnameauthentication.request.AuthCodeUrlRequest;
+import com.github.binarywang.wxpay.bean.realnameauthentication.request.RealNameAuthParam;
 import com.github.binarywang.wxpay.bean.realnameauthentication.request.RealNameAuthRequest;
 import com.github.binarywang.wxpay.bean.realnameauthentication.response.RealNameAuthAccessTokenResponse;
 import com.github.binarywang.wxpay.bean.realnameauthentication.response.RealNameAuthResponse;
@@ -74,9 +75,20 @@ public class RealNameAuthenticationServiceImpl implements RealNameAuthentication
 
   @SneakyThrows
   @Override
-  public RealNameAuthResponse auth(RealNameAuthRequest request) {
-    Map<String, String> param = requestToMap(request);
-    String sign = SignUtils.createSign(param, WxPayConstants.SignType.HMAC_SHA256, payService.getConfig().getMchKey(), null);
+  public RealNameAuthResponse auth(RealNameAuthParam param) {
+    WxPayConfig config = payService.getConfig();
+    RealNameAuthRequest request = new RealNameAuthRequest();
+    request.setOpenid(param.getOpenid());
+    request.setRealName(param.getRealName());
+    request.setCredType(param.getCredType());
+    request.setCredId(param.getCredId());
+    request.setAccessToken(param.getAccessToken());
+    request.setSignType(WxPayConstants.SignType.HMAC_SHA256);
+    request.setMchId(config.getMchId());
+    request.setAppid(config.getAppId());
+    request.setNonceStr(RandomUtils.getRandomStr());
+    Map<String, String> paramMap = requestToMap(request);
+    String sign = SignUtils.createSign(paramMap, WxPayConstants.SignType.HMAC_SHA256, payService.getConfig().getMchKey(), null);
     request.setSign(sign);
 
     String paramStr = XmlUtils.objToXml(request);

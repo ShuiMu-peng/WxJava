@@ -1,7 +1,7 @@
 package com.github.binarywang.wxpay.service;
 
 import com.github.binarywang.wxpay.bean.realnameauthentication.request.AuthCodeUrlRequest;
-import com.github.binarywang.wxpay.bean.realnameauthentication.request.RealNameAuthRequest;
+import com.github.binarywang.wxpay.bean.realnameauthentication.request.RealNameAuthParam;
 import com.github.binarywang.wxpay.bean.realnameauthentication.response.RealNameAuthAccessTokenResponse;
 import com.github.binarywang.wxpay.bean.realnameauthentication.response.RealNameAuthResponse;
 
@@ -32,6 +32,6 @@ public interface RealNameAuthenticationService {
    * 实名认证
    * @param request 请求参数
    */
-  RealNameAuthResponse auth(RealNameAuthRequest request);
+  RealNameAuthResponse auth(RealNameAuthParam request);
 
 }
